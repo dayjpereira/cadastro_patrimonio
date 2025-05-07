@@ -1,0 +1,37 @@
+<div id="<%= dom_id patrimonio %>">
+  <p>
+    <strong>Nome:</strong>
+    <%= patrimonio.nome %>
+  </p>
+
+  <p>
+    <strong>Número da Placa:</strong>
+    <%= patrimonio.numero_placa %>
+  </p>
+
+  <p>
+    <strong>Valor:</strong>
+    <%= patrimonio.valor %>
+  </p>
+
+  <p>
+    <strong>Data de Compra:</strong>
+    <%= patrimonio.data_compra.strftime("%d/%m/%Y") if patrimonio.data_compra.present? %>
+  </p>
+
+  <p>
+    <strong>Descrição:</strong>
+    <%= patrimonio.descricao %>
+  </p>
+
+  <p>
+    <strong>Funcionário:</strong>
+    <%= patrimonio.funcionario.nome %>
+  </p>
+
+  <p>
+    <strong>Departamento:</strong>
+    <%= patrimonio.departamento.nome %>
+  </p>
+
+</div>

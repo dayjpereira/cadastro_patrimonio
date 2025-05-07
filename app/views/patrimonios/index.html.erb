@@ -1,0 +1,73 @@
+<% if notice %>
+  <div class="alert alert-success text-center" role="alert">
+    <%= notice %>
+  </div>
+<% end %>
+
+<% content_for :title, "Patrimônios" %>
+
+<h1>Patrimônios</h1>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <%= form_with url: patrimonios_path, method: :get, local: true do |form| %>
+      <div class="row gx-3 gy-2 align-items-end">
+        <div class="col-md-3">
+          <%= form.label :nome, "Nome", class: "form-label" %>
+          <%= form.text_field :nome, value: params[:nome], class: "form-control" %>
+        </div>
+
+        <div class="col-md-3">
+          <%= form.label :placa, "Nº da Placa", class: "form-label" %>
+          <%= form.text_field :placa, value: params[:placa], class: "form-control" %>
+        </div>
+
+        <div class="col-md-5">
+          <div class="col-md-5 d-flex flex-column justify-content-end">
+          <%= form.label :departamento_id, "Departamento", class: "form-label" %>
+          <%= form.select :departamento_id, options_from_collection_for_select(Departamento.all, :id, :nome, params[:departamento_id]), include_blank: "Todos", class: "form-select" %>
+        </div>
+
+        </div>
+
+        <div class="col-md-2 d-grid">
+          <%= form.submit "Buscar", class: "btn btn-primary" %>
+        </div>
+        </div>
+    <% end %>
+  </div>
+</div>
+
+
+<table class="table table-bordered table-hover shadow-sm">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Nº da Placa</th>
+        <th>Departamento</th>
+        <th>Funcionário</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @patrimonios.each do |patrimonio| %>
+        <tr>
+          <td><%= patrimonio.nome %></td>
+          <td><%= patrimonio.numero_placa %></td>
+          <td><%= patrimonio.departamento.nome if patrimonio.departamento %></td>
+          <td><%= patrimonio.funcionario.nome if patrimonio.funcionario %></td>
+          <td>
+            <%= link_to 'Ver', patrimonio_path(patrimonio), class: 'btn btn-info btn-sm' %>
+            <%= link_to 'Editar', edit_patrimonio_path(patrimonio), class: 'btn btn-warning btn-sm' %>
+            <%= link_to 'Excluir', patrimonio_path(patrimonio), method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="text-end mt-3">
+    <%= link_to '➕ Novo Patrimônio', new_patrimonio_path, class: 'btn btn-success' %>
+  </div>
+
+</div>

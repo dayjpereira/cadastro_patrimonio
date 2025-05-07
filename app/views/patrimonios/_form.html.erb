@@ -1,0 +1,52 @@
+<%= form_with(model: patrimonio) do |form| %>
+  <% if patrimonio.errors.any? %>
+    <div>
+      <h2><%= pluralize(patrimonio.errors.count, "erro") %> proibiram este patrimônio de ser salvo:</h2>
+      <ul>
+        <% patrimonio.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nome %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div>
+    <%= form.label :numero_placa, "Nº da Placa" %>
+    <%= form.text_field :numero_placa %>
+  </div>
+
+  <div>
+    <%= form.label :valor %>
+    <%= form.number_field :valor, step: 0.01 %>
+  </div>
+
+  <div>
+    <%= form.label :data_compra, "Data de Compra" %>
+    <%= form.text_field :data_compra, value: form.object.data_compra&.strftime("%d/%m/%Y"), placeholder: "dd/mm/aaaa", class: "data-input" %>
+  
+  </div>
+
+  <div>
+    <%= form.label :descricao, "Descrição do Produto" %>
+    <%= form.text_area :descricao %>
+  </div>
+
+  <div>
+  <%= form.label :departamento_id %>
+  <%= form.collection_select :departamento_id, Departamento.all, :id, :nome, prompt: "Selecione um departamento" %>
+  </div>
+
+  <div>
+    <%= form.label :funcionario_id, "Funcionário" %>
+    <%= form.collection_select :funcionario_id, Funcionario.all, :id, :nome, prompt: "Selecione um funcionário" %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
