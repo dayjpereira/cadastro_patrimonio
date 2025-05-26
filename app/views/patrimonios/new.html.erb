@@ -1,11 +1,13 @@
-<% content_for :title, "New patrimonio" %>
+<% content_for :title, "Cadastro Patrimônio" %>
 
-<h1>New patrimonio</h1>
 
-<%= render "form", patrimonio: @patrimonio %>
+<div class="card shadow-sm p-4">
+  <h1 class="mb-4">Novo Patrimôno</h1>
 
-<br>
+  <%= render "form", patrimonio: @patrimonio %>
 
-<div>
-  <%= link_to "Back to patrimonios", patrimonios_path %>
+  <div class="d-flex gap-2 mt-3">
+    <%= link_to "Voltar", patrimonios_path, class: "btn btn-outline-secondary" %>
+  </div>
+  
 </div>

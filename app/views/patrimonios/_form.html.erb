@@ -1,7 +1,7 @@
-<%= form_with(model: patrimonio) do |form| %>
+<%= form_with(model: patrimonio, local: true) do |form| %>
   <% if patrimonio.errors.any? %>
-    <div>
-      <h2><%= pluralize(patrimonio.errors.count, "erro") %> proibiram este patrimônio de ser salvo:</h2>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(patrimonio.errors.count, "erro") %> proibiram este patrimônio de ser salvo:</h4>
       <ul>
         <% patrimonio.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -10,43 +10,49 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :nome %>
-    <%= form.text_field :nome %>
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <%= form.label :nome, 'Nome', class: 'form-label' %>
+      <%= form.text_field :nome, class: 'form-control' %>
+    </div>
+
+    <div class="col-md-6">
+      <%= form.label :numero_placa, 'Nº da Placa', class: 'form-label' %>
+      <%= form.text_field :numero_placa, class: 'form-control' %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :numero_placa, "Nº da Placa" %>
-    <%= form.text_field :numero_placa %>
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <%= form.label :valor, 'Valor', class: 'form-label' %>
+      <%= form.number_field :valor, step: 0.01, class: 'form-control' %>
+    </div>
+
+    <div class="col-md-6">
+      <%= form.label :data_compra, 'Data de Compra', class: 'form-label' %>
+      <%= form.text_field :data_compra, value: form.object.data_compra&.strftime("%d/%m/%Y"), placeholder: "dd/mm/aaaa", class: "form-control data-input" %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :valor %>
-    <%= form.number_field :valor, step: 0.01 %>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <%= form.label :departamento_id, 'Departamento', class: 'form-label' %>
+      <%= form.collection_select :departamento_id, Departamento.all, :id, :nome, { prompt: "Selecione um departamento" }, class: 'form-select' %>
+    </div>
+
+    <div class="col-md-6">
+      <%= form.label :funcionario_id, 'Funcionário', class: 'form-label' %>
+      <%= form.collection_select :funcionario_id, Funcionario.all, :id, :nome, { prompt: "Selecione um funcionário" }, class: 'form-select' %>
+    </div>
+  </div>
+          
+  <div class="mb-3">
+    <%= form.label :descricao, 'Descrição do Produto', class: 'form-label' %>
+    <%= form.text_area :descricao, class: 'form-control', rows: 3 %>
   </div>
 
-  <div>
-    <%= form.label :data_compra, "Data de Compra" %>
-    <%= form.text_field :data_compra, value: form.object.data_compra&.strftime("%d/%m/%Y"), placeholder: "dd/mm/aaaa", class: "data-input" %>
-  
-  </div>
-
-  <div>
-    <%= form.label :descricao, "Descrição do Produto" %>
-    <%= form.text_area :descricao %>
-  </div>
-
-  <div>
-  <%= form.label :departamento_id %>
-  <%= form.collection_select :departamento_id, Departamento.all, :id, :nome, prompt: "Selecione um departamento" %>
-  </div>
-
-  <div>
-    <%= form.label :funcionario_id, "Funcionário" %>
-    <%= form.collection_select :funcionario_id, Funcionario.all, :id, :nome, prompt: "Selecione um funcionário" %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="mb-4">
+    <%= form.submit patrimonio.new_record? ? "Criar Patrimônio" : "Atualizar Patrimônio", class: "btn btn-primary" %>
   </div>
 <% end %>

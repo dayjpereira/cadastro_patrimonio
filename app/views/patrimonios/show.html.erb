@@ -3,8 +3,8 @@
 <%= render @patrimonio %>
 
 <div>
-  <%= link_to "Edit this patrimonio", edit_patrimonio_path(@patrimonio) %> |
-  <%= link_to "Back to patrimonios", patrimonios_path %>
+  <%= link_to "Editar", edit_patrimonio_path(@patrimonio) %> |
+  <%= link_to "Voltar", patrimonios_path %>
 
-  <%= button_to "Destroy this patrimonio", @patrimonio, method: :delete %>
+  <%= button_to "Excluir", @patrimonio, method: :delete %>
 </div>

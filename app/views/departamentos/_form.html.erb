@@ -11,12 +11,15 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :nome, style: "display: block" %>
-    <%= form.text_field :nome %>
-  </div>
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <%= form.label :nome, 'Nome', class: 'form-label' %>
+      <%= form.text_field :nome, class: 'form-control' %>
+    </div>
+<br>
+    <div class="mb-4 mt-4">
+      <%= form.submit departamento.new_record? ? "Criar Departamento" : "Atualizar Departamento", class: "btn btn-primary" %>
+    </div>
 
-  <div>
-    <%= form.submit %>
   </div>
 <% end %>

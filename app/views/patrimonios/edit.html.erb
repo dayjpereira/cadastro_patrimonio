@@ -1,12 +1,14 @@
-<% content_for :title, "Editing patrimonio" %>
+<% content_for :title, "Cadastro Patrimônio" %>
 
-<h1>Editing patrimonio</h1>
+<div class="card shadow-sm p-4">
+  <h1 class="mb-4">Edição de Patrimônio</h1>
 
-<%= render "form", patrimonio: @patrimonio %>
+  <%= render "form", patrimonio: @patrimonio %>
 
-<br>
-
-<div>
-  <%= link_to "Show this patrimonio", @patrimonio %> |
-  <%= link_to "Back to patrimonios", patrimonios_path %>
+  <div class="d-flex gap-2 mt-3">
+    <%= link_to "Visualizar Patrimônio", @patrimonio, class: "btn btn-outline-secondary" %>
+    <%= link_to "Voltar", patrimonios_path, class: "btn btn-outline-secondary" %>
+  </div>
 </div>
+
+
