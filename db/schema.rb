@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_06_031137) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_27_210052) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_06_031137) do
     t.decimal "valor"
     t.date "data_compra"
     t.text "descricao"
-    t.bigint "funcionario_id", null: false
+    t.bigint "funcionario_id"
     t.bigint "departamento_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

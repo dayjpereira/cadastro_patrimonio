@@ -1,12 +1,12 @@
-<% content_for :title, "Editing funcionario" %>
+<% content_for :title, "Cadastro de Patrimônio" %>
 
-<h1>Editing funcionario</h1>
+<div class="card shadow-sm p-4">
+  <h1 class="mb-4">Edição de Funcionário</h1>
 
-<%= render "form", funcionario: @funcionario %>
+  <%= render "form", funcionario: @funcionario %>
 
-<br>
-
-<div>
-  <%= link_to "Show this funcionario", @funcionario %> |
-  <%= link_to "Back to funcionarios", funcionarios_path %>
+  <div class="d-flex gap-2 mt-3">
+    <%= link_to "Visualizar Funcionário", @funcionario, class: "btn btn-outline-secondary" %>
+    <%= link_to "Voltar", funcionarios_path, class: "btn btn-outline-secondary" %>
+  </div>
 </div>

@@ -1,12 +1,12 @@
 class FuncionariosController < ApplicationController
   before_action :set_funcionario, only: %i[ show edit update destroy ]
 
-  # GET /funcionarios or /funcionarios.json
+  # GET /funcionarios
   def index
     @funcionarios = Funcionario.all
   end
 
-  # GET /funcionarios/1 or /funcionarios/1.json
+  # GET /funcionarios/1
   def show
   end
 
@@ -19,13 +19,13 @@ class FuncionariosController < ApplicationController
   def edit
   end
 
-  # POST /funcionarios or /funcionarios.json
+  # POST /funcionarios
   def create
     @funcionario = Funcionario.new(funcionario_params)
 
     respond_to do |format|
       if @funcionario.save
-        format.html { redirect_to @funcionario, notice: "Funcionario was successfully created." }
+        format.html { redirect_to @funcionario, notice: "Funcionário criado com sucesso." }
         format.json { render :show, status: :created, location: @funcionario }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -34,11 +34,11 @@ class FuncionariosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /funcionarios/1 or /funcionarios/1.json
+  # PATCH/PUT /funcionarios/1
   def update
     respond_to do |format|
       if @funcionario.update(funcionario_params)
-        format.html { redirect_to @funcionario, notice: "Funcionario was successfully updated." }
+        format.html { redirect_to @funcionario, notice: "Funcionário atualizado com sucesso." }
         format.json { render :show, status: :ok, location: @funcionario }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -47,31 +47,35 @@ class FuncionariosController < ApplicationController
     end
   end
 
-  # DELETE /funcionarios/1 or /funcionarios/1.json
+  # DELETE /funcionarios/1
   def destroy
-    @funcionario.destroy!
+    @funcionario.destroy
 
     respond_to do |format|
-      format.html { redirect_to funcionarios_path, status: :see_other, notice: "Funcionario was successfully destroyed." }
-      format.json { head :no_content }
+      format.turbo_stream do
+        flash.now[:notice] = "Funcionário excluído com sucesso."
+        render turbo_stream: [
+          turbo_stream.remove(@funcionario),
+          turbo_stream.prepend("flash", partial: "layouts/flash")
+        ]
+      end
+      format.html { redirect_to funcionarios_path, notice: "Funcionário excluído com sucesso." }
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_funcionario
-      @funcionario = Funcionario.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def funcionario_params
-      params.require(:funcionario).permit(:nome, :departamento_id)
-    end
-
-    # app/controllers/funcionarios_controller.rb
+  # GET /funcionarios/por_departamento/:id
   def por_departamento
     @funcionarios = Funcionario.where(departamento_id: params[:id])
     render json: @funcionarios
   end
 
+  private
+
+  def set_funcionario
+    @funcionario = Funcionario.find(params[:id])
+  end
+
+  def funcionario_params
+    params.require(:funcionario).permit(:nome, :departamento_id)
+  end
 end

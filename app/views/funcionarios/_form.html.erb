@@ -11,18 +11,20 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :nome, style: "display: block" %>
-    <%= form.text_field :nome %>
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <%= form.label :nome, 'Nome', class: 'form-label' %>
+      <%= form.text_field :nome, class: 'form-control' %>
+    </div>
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <%= form.label :departamento_id, 'Departamento', class: 'form-label' %>
+      <%= form.collection_select :departamento_id, Departamento.all, :id, :nome, { prompt: "Selecione um departamento" }, class: 'form-select' %>
   </div>
+<br>
+    <div class="mb-4 mt-4">
+      <%= form.submit funcionario.new_record? ? "Criar Funcionário" : "Atualizar Funcionário", class: "btn btn-primary" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :departamento_id, "Departamento" %><br>
-    <%= form.collection_select :departamento_id, Departamento.all, :id, :nome, prompt: "Selecione um departamento" %>
-  </div>
-
-
-  <div>
-    <%= form.submit %>
   </div>
 <% end %>

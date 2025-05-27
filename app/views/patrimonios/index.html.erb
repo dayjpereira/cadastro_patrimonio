@@ -55,7 +55,7 @@
           <td><%= patrimonio.nome %></td>
           <td><%= patrimonio.numero_placa %></td>
           <td><%= patrimonio.departamento.nome if patrimonio.departamento %></td>
-          <td><%= patrimonio.funcionario.nome if patrimonio.funcionario %></td>
+          <td><%= patrimonio.funcionario&.nome.present? ? patrimonio.funcionario.nome : '--' %></td>
           <td>
             <%= link_to 'Ver', patrimonio_path(patrimonio), class: 'btn btn-info btn-sm' %>
             <%= link_to 'Editar', edit_patrimonio_path(patrimonio), class: 'btn btn-warning btn-sm' %>
