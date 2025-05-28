@@ -58,4 +58,3 @@ end
 
 gem "sassc", "~> 2.4"
 
-gem 'turbo-rails'
